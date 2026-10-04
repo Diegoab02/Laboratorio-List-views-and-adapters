@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">DielTech</string>
+    <string name="catalog_title">Catálogo de Cursos</string>
+    <string name="loading">Cargando...</string>
+    <string name="error_loading">Error al cargar</string>
+    <string name="view_details">Ver Detalles</string>
+    <string name="buy_now">Comprar Ahora</string>
+</resources>

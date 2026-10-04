@@ -1,0 +1,47 @@
+# ===== SECRETOS (NO subir) =====
+dieletech-backend/src/main/resources/application.properties
+**/application-local.properties
+.env
+.env.*
+*.env
+
+# ===== IDE =====
+.idea/
+.vscode/
+*.iml
+
+# ===== Sistema Operativo =====
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== Node / Frontend (Vite + React) =====
+node_modules/
+dist/
+.vite/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ===== Java / Kotlin / Gradle (Backend + Android) =====
+.gradle/
+build/
+out/
+target/
+*.class
+local.properties
+!gradle/wrapper/gradle-wrapper.jar
+
+# ===== Android =====
+*.apk
+*.aab
+*.ap_
+*.dex
+captures/
+.externalNativeBuild/
+.cxx/
+
+# ===== Logs / cobertura =====
+*.log
+logs/
+coverage/

@@ -1,0 +1,849 @@
+{
+  "info": {
+    "name": "DIELTECH API",
+    "description": "Coleccion completa de la API REST de Dieletech",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080/api"
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "course_id",
+      "value": "1"
+    },
+    {
+      "key": "assignment_id",
+      "value": ""
+    },
+    {
+      "key": "new_assignment_id",
+      "value": ""
+    },
+    {
+      "key": "submission_id",
+      "value": ""
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "1. Register",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/auth/register",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Diego Betancur\",\n  \"email\": \"diego@test.com\",\n  \"password\": \"123456\",\n  \"role\": \"STUDENT\"\n}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "2. Verify Code",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/auth/verify-code",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"diego@test.com\",\n  \"code\": \"123456\"\n}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "3. Resend Code",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/auth/resend-code",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"diego@test.com\"\n}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "4. Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.token) {",
+                  "    pm.collectionVariables.set('token', jsonData.token);",
+                  "    console.log('Token guardado automaticamente');",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/auth/login",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"diego@test.com\",\n  \"password\": \"123456\"\n}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "5. Forgot Password",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/auth/forgot-password",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"diego@test.com\"\n}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "6. Reset Password",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/auth/reset-password",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"PEGA_TOKEN_DEL_EMAIL\",\n  \"password\": \"nuevaPassword123\"\n}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Register INSTRUCTOR",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/auth/register",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Profesor Ana\",\n  \"email\": \"ana@test.com\",\n  \"password\": \"123456\",\n  \"role\": \"INSTRUCTOR\"\n}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Courses (Catalogo)",
+      "item": [
+        {
+          "name": "Get All Courses",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/courses",
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Get Course by ID",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/courses/1",
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Get by Technology",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/courses/technology/Python",
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Get by Level",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/courses/level/Principiante",
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Search Courses",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/courses/search?q=python",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "courses",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "python"
+                }
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Purchases",
+      "item": [
+        {
+          "name": "Purchase Course",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/purchases",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"courseId\": 1,\n  \"userEmail\": \"diego@test.com\",\n  \"paymentMethod\": \"CREDIT_CARD\"\n}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Get User Purchases",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/purchases/user/diego@test.com",
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Check Purchase",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/purchases/check?email=diego@test.com&courseId=1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "purchases",
+                "check"
+              ],
+              "query": [
+                {
+                  "key": "email",
+                  "value": "diego@test.com"
+                },
+                {
+                  "key": "courseId",
+                  "value": "1"
+                }
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Lessons & Progress",
+      "item": [
+        {
+          "name": "Get Course Lessons",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/courses/1/lessons",
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Update Lesson Progress",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/lessons/1/progress",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"diego@test.com\",\n  \"completed\": true,\n  \"watchedSeconds\": 600\n}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Get Course Progress",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/courses/1/progress?email=diego@test.com",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "courses",
+                "1",
+                "progress"
+              ],
+              "query": [
+                {
+                  "key": "email",
+                  "value": "diego@test.com"
+                }
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin (Requiere JWT)",
+      "item": [
+        {
+          "name": "Create Course",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/admin/courses",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Nuevo Curso de Testing\",\n  \"description\": \"Aprende testing automatizado\",\n  \"technology\": \"Java\",\n  \"level\": \"Intermedio\",\n  \"price\": 69900,\n  \"duration\": 30\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Course",
+          "request": {
+            "method": "PUT",
+            "url": "{{base_url}}/admin/courses/1",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Fundamentos de Python (Actualizado)\",\n  \"price\": 89900\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Course",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/admin/courses/1"
+          }
+        },
+        {
+          "name": "Create Lesson",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/admin/courses/1/lessons",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Introduccion al curso\",\n  \"description\": \"Primera leccion\",\n  \"videoUrl\": \"https://youtube.com/watch?v=example\",\n  \"orderIndex\": 1,\n  \"durationMinutes\": 15,\n  \"contentType\": \"VIDEO\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Lesson",
+          "request": {
+            "method": "PUT",
+            "url": "{{base_url}}/admin/lessons/1",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Introduccion actualizada\",\n  \"durationMinutes\": 20\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Lesson",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/admin/lessons/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tareas practicas (HU-37 / HU-38)",
+      "description": "Ejercicios practicos por modulo. Las pruebas negativas son las que importan: el enunciado sin compra, el instructor ajeno y la entrega ya calificada. Si alguna de esas devuelve 200, la regla no esta en el servidor.",
+      "item": [
+        {
+          "name": "1. Listar tareas del curso (sin sesion)",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/courses/{{course_id}}/assignments",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "Sin token la cadena de seguridad responde 401, no 403: el cliente tiene que poder distinguir 'inicia sesion' de 'no tienes permiso'."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('401 sin sesion, no 403', () => pm.response.to.have.status(401));",
+                  "pm.test('el cuerpo trae mensaje legible', () => pm.expect(pm.response.json()).to.have.property('message'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "2. Listar tareas del curso (autenticado)",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/courses/{{course_id}}/assignments",
+            "header": [],
+            "description": "Con sesion pero sin compra el enunciado llega en null y locked = true."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('200', () => pm.response.to.have.status(200));",
+                  "const a = pm.response.json();",
+                  "pm.test('devuelve una lista', () => pm.expect(a).to.be.an('array'));",
+                  "if (a.length) { pm.collectionVariables.set('assignment_id', a[0].id); }",
+                  "pm.test('si esta bloqueada el enunciado no viaja', () => {",
+                  "  a.filter(x => x.locked).forEach(x => pm.expect(x.statement).to.equal(null));",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "3. Mis tareas del curso con estado de entrega",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/courses/{{course_id}}/assignments/mine",
+            "header": [],
+            "description": "Un solo viaje: tarea, mi entrega, si puedo entregar y por que no."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('200', () => pm.response.to.have.status(200));",
+                  "const v = pm.response.json();",
+                  "pm.test('cada fila trae canSubmit', () => v.forEach(x => pm.expect(x).to.have.property('canSubmit')));",
+                  "pm.test('si no puede entregar, dice por que', () => {",
+                  "  v.filter(x => !x.canSubmit).forEach(x => pm.expect(x.blockedReason).to.be.a('string'));",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "4. Detalle de una tarea con mi entrega",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/assignments/{{assignment_id}}/mine",
+            "header": []
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('200', () => pm.response.to.have.status(200));",
+                  "pm.test('trae la tarea', () => pm.expect(pm.response.json()).to.have.property('assignment'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "5. Guardar borrador",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/assignments/{{assignment_id}}/submission",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"Voy a medias, guardo para seguir luego.\",\n  \"draft\": true\n}"
+            },
+            "description": "Guardar borrador reutiliza la misma fila. Repetir esta peticion no debe crear una segunda entrega."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('200 o 403 si el modulo no esta completo', () => pm.expect([200,403]).to.include(pm.response.code));",
+                  "if (pm.response.code === 200) {",
+                  "  const s = pm.response.json();",
+                  "  pm.test('queda en DRAFT', () => pm.expect(s.status).to.equal('DRAFT'));",
+                  "  pm.test('un borrador no tiene fecha de entrega', () => pm.expect(s.submittedAt).to.equal(null));",
+                  "  pm.collectionVariables.set('submission_id', s.id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "6. Entrega definitiva",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/assignments/{{assignment_id}}/submission",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"Entrega final del ejercicio, con la salida de consola incluida.\",\n  \"draft\": false\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('200, 403 o 409', () => pm.expect([200,403,409]).to.include(pm.response.code));",
+                  "if (pm.response.code === 200) {",
+                  "  const s = pm.response.json();",
+                  "  pm.test('queda en SUBMITTED', () => pm.expect(s.status).to.equal('SUBMITTED'));",
+                  "  pm.test('tiene fecha de entrega', () => pm.expect(s.submittedAt).to.not.equal(null));",
+                  "  pm.test('conserva el mismo id que el borrador', () => {",
+                  "    const prev = pm.collectionVariables.get('submission_id');",
+                  "    if (prev) pm.expect(String(s.id)).to.equal(String(prev));",
+                  "  });",
+                  "}",
+                  "if (pm.response.code === 409) {",
+                  "  pm.test('ya calificada: no admite cambios', () => pm.expect(pm.response.json().message).to.include('calificada'));",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "7. Entrega vacia (debe fallar)",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/assignments/{{assignment_id}}/submission",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"   \",\n  \"draft\": true\n}"
+            },
+            "description": "Bean Validation en el DTO. Devuelve 400 con el mapa campo -> error."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('400', () => pm.response.to.have.status(400));",
+                  "pm.test('dice que campo fallo', () => {",
+                  "  const b = pm.response.json();",
+                  "  pm.expect(b).to.have.property('message');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "8. Tarea inexistente (debe fallar)",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/assignments/999999/mine",
+            "header": [],
+            "description": "Antes de este sprint esto devolvia 400. Ahora 404, que es lo que es."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('404, no 400', () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "9. ADMIN: listar tareas del curso",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/admin/courses/{{course_id}}/assignments",
+            "header": [],
+            "description": "Requiere rol INSTRUCTOR o ADMIN. Si el instructor no es dueño del curso, 403 desde el servicio."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('200 si eres dueño, 403 si no', () => pm.expect([200,403]).to.include(pm.response.code));",
+                  "if (pm.response.code === 200) {",
+                  "  const a = pm.response.json();",
+                  "  pm.test('el admin si ve el enunciado', () => a.forEach(x => pm.expect(x.statement).to.be.a('string')));",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "10. ADMIN: crear tarea",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/admin/courses/{{course_id}}/assignments",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Ejercicio de prueba desde Postman\",\n  \"statement\": \"Escribe un programa que valide la entrada del usuario y explique el resultado.\",\n  \"type\": \"CODE\",\n  \"lessonId\": null,\n  \"maxScore\": 100,\n  \"dueOffsetDays\": 7,\n  \"orderIndex\": 0\n}"
+            },
+            "description": "lessonId en null crea una tarea del curso completo, que no choca con la regla de un modulo = una tarea."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('201 o 403', () => pm.expect([201,403]).to.include(pm.response.code));",
+                  "if (pm.response.code === 201) pm.collectionVariables.set('new_assignment_id', pm.response.json().id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "11. ADMIN: titulo invalido (debe fallar)",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/admin/courses/{{course_id}}/assignments",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"ab\",\n  \"statement\": \"corto\",\n  \"type\": \"CODE\",\n  \"maxScore\": 100,\n  \"dueOffsetDays\": 7\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('400', () => pm.response.to.have.status(400));",
+                  "pm.test('nombra los campos que fallan', () => {",
+                  "  const b = pm.response.json();",
+                  "  pm.expect(b.errors).to.be.an('object');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "12. ADMIN: tipo de entrega invalido (debe fallar)",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/admin/courses/{{course_id}}/assignments",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Tipo invalido de prueba\",\n  \"statement\": \"Enunciado suficientemente largo para pasar la validacion de longitud.\",\n  \"type\": \"VIDEO\",\n  \"maxScore\": 100,\n  \"dueOffsetDays\": 7\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('400', () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "13. ADMIN: archivar tarea",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/admin/assignments/{{new_assignment_id}}",
+            "header": [],
+            "description": "Archivado logico: la fila se desactiva, las entregas ya hechas conservan su trazabilidad."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('204, 403 o 404', () => pm.expect([204,403,404]).to.include(pm.response.code));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

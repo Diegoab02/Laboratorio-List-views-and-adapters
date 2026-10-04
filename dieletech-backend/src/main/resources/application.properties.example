@@ -1,0 +1,52 @@
+spring.application.name=backend
+
+# ===== Base de datos MySQL =====
+spring.datasource.url=jdbc:mysql://localhost:3306/dieletech_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
+spring.datasource.username=root
+spring.datasource.password=TU_PASSWORD_DE_MYSQL
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# ===== JPA =====
+spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=false
+spring.jpa.properties.hibernate.format_sql=false
+
+# ===== Gmail SMTP =====
+# Genera una "contrasena de aplicacion" en tu cuenta de Google y pegala aqui.
+# NO subas el valor real al repositorio.
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+spring.mail.username=TU_CORREO@gmail.com
+spring.mail.password=TU_APP_PASSWORD_DE_GMAIL
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+
+# ===== JWT =====
+# Cambia este secreto por una cadena larga, aleatoria y unica.
+jwt.secret=CAMBIA_ESTE_SECRETO_POR_UNO_LARGO_Y_UNICO
+jwt.expiration=86400000
+
+# ===== URL del frontend =====
+app.url=http://localhost:5173
+
+# Auto-verificar cuentas en desarrollo (login inmediato tras registro).
+# Pon false para exigir verificacion real por correo.
+app.auto-verify=true
+
+# Mostrar mensajes de error en respuestas
+server.error.include-message=always
+
+# Puerto del backend
+server.port=8080
+
+# ===== Swagger / OpenAPI (HU-26) =====
+springdoc.api-docs.path=/v3/api-docs
+springdoc.swagger-ui.path=/swagger-ui.html
+springdoc.swagger-ui.operations-sorter=method
+springdoc.swagger-ui.tags-sorter=alpha
+
+# ===== Evaluacion final y certificados (HU-10, HU-11) =====
+# Puntaje minimo para aprobar la evaluacion y recibir el certificado.
+app.quiz.passing-score=70
+app.certificate.issuer=Dieletech

@@ -1,0 +1,26 @@
+{
+  "name": "Dieletech — Tu ruta hacia tu 1° en Tech",
+  "short_name": "Dieletech",
+  "description": "Plataforma de aprendizaje para desarrolladores junior y estudiantes de sistemas. Cursos de Python, desarrollo web, Git, Spring Boot, React y MySQL con certificado verificable.",
+  "start_url": "/catalog",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#ffffff",
+  "theme_color": "#1d4ed8",
+  "lang": "es-CO",
+  "categories": ["education", "productivity"],
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Mis cursos", "short_name": "Cursos", "url": "/dashboard",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Catálogo", "short_name": "Catálogo", "url": "/catalog",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Mis certificados", "short_name": "Certificados", "url": "/certificados",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
